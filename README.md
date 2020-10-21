@@ -2,6 +2,11 @@
 
 Este repositorio contiene un archivo .sql que contiene la información de la división político administrativa de Colombia. La base de datos fue diseñada inicialmente utilizando la herramienta MySQL Workbench, luego alimentada utilizando archivos CVS por medio de phpMyAdmin.
 
+### Archivos
+
+El archivo rgion_dptos_mpios_colombia.sql contiene las tablas regiones, departamentos y municipios.
+El archivo dptos_mpios_colombia.sql contiene las tablas departamentos y municipios.
+
 ## Información contenida en la base de datos
 
 La información contenida en la base de datos corresponde a las 6 regiones de Colombia, los 32 departamentos más el distrito de Bogotá y las 1.123 entidades administrativas locales (municipios, áreas no municipalizadas y la isla de San Andrés).

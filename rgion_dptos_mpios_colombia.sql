@@ -20,47 +20,48 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `departamentos` (
   `id_departamento` int(10) UNSIGNED NOT NULL,
-  `departemento` varchar(255) COLLATE utf8_bin NOT NULL
+  `departemento` varchar(255) COLLATE utf8_bin NOT NULL,
+  `regiones_id_region` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `departamentos`
 --
 
-INSERT INTO `departamentos` (`id_departamento`, `departemento`) VALUES
-(5, 'ANTIOQUIA'),
-(8, 'ATLANTICO'),
-(11, 'BOGOTA D.C.'),
-(13, 'BOLIVAR'),
-(15, 'BOYACA'),
-(17, 'CALDAS'),
-(18, 'CAQUETA'),
-(19, 'CAUCA'),
-(20, 'CESAR'),
-(23, 'CORDOBA'),
-(25, 'CUNDINAMARCA'),
-(27, 'CHOCO'),
-(41, 'HUILA'),
-(44, 'LA GUAJIRA'),
-(47, 'MAGDALENA'),
-(50, 'META'),
-(52, 'NARIÑO'),
-(54, 'NORTE DE SANTANDER'),
-(63, 'QUINDIO'),
-(66, 'RISARALDA'),
-(68, 'SANTANDER'),
-(70, 'SUCRE'),
-(73, 'TOLIMA'),
-(76, 'VALLE DEL CAUCA'),
-(81, 'ARAUCA'),
-(85, 'CASANARE'),
-(86, 'PUTUMAYO'),
-(88, 'ARCHIPIELAGO DE SAN ANDRES, PROVIDENCIA Y SANTA CATALINA'),
-(91, 'AMAZONAS'),
-(94, 'GUAINIA'),
-(95, 'GUAVIARE'),
-(97, 'VAUPES'),
-(99, 'VICHADA');
+INSERT INTO `departamentos` (`id_departamento`, `departemento`, `regiones_id_region`) VALUES
+(5, 'ANTIOQUIA', 1),
+(8, 'ATLANTICO', 3),
+(11, 'BOGOTA D.C.', 2),
+(13, 'BOLIVAR', 3),
+(15, 'BOYACA', 2),
+(17, 'CALDAS', 1),
+(18, 'CAQUETA', 5),
+(19, 'CAUCA', 6),
+(20, 'CESAR', 3),
+(23, 'CORDOBA', 3),
+(25, 'CUNDINAMARCA', 2),
+(27, 'CHOCO', 6),
+(41, 'HUILA', 5),
+(44, 'LA GUAJIRA', 3),
+(47, 'MAGDALENA', 3),
+(50, 'META', 4),
+(52, 'NARIÑO', 6),
+(54, 'NORTE DE SANTANDER', 2),
+(63, 'QUINDIO', 1),
+(66, 'RISARALDA', 1),
+(68, 'SANTANDER', 2),
+(70, 'SUCRE', 3),
+(73, 'TOLIMA', 5),
+(76, 'VALLE DEL CAUCA', 6),
+(81, 'ARAUCA', 4),
+(85, 'CASANARE', 4),
+(86, 'PUTUMAYO', 5),
+(88, 'ARCHIPIELAGO DE SAN ANDRES, PROVIDENCIA Y SANTA CATALINA', 3),
+(91, 'AMAZONAS', 5),
+(94, 'GUAINIA', 4),
+(95, 'GUAVIARE', 4),
+(97, 'VAUPES', 4),
+(99, 'VICHADA', 4);
 
 -- --------------------------------------------------------
 
@@ -1206,6 +1207,27 @@ INSERT INTO `municipios` (`id_municipio`, `municipio`, `departamentos_id_departa
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `regiones`
+--
+
+CREATE TABLE `regiones` (
+  `id_region` int(10) UNSIGNED NOT NULL,
+  `region` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `regiones`
+--
+
+INSERT INTO `regiones` (`id_region`, `region`) VALUES
+(1, 'Región Eje Cafetero'),
+(2, 'Región Centro Oriente'),
+(3, 'Región Caribe'),
+(4, 'Región Llano'),
+(5, 'Región Centro Sur'),
+(6, 'Región Pacífico');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -1214,7 +1236,8 @@ INSERT INTO `municipios` (`id_municipio`, `municipio`, `departamentos_id_departa
 --
 ALTER TABLE `departamentos`
   ADD PRIMARY KEY (`id_departamento`),
-  ADD UNIQUE KEY `id_departamento_UNIQUE` (`id_departamento`);
+  ADD UNIQUE KEY `id_departamento_UNIQUE` (`id_departamento`),
+  ADD KEY `fk_departamentos_regiones1_idx` (`regiones_id_region`);
 
 --
 -- Indices de la tabla `municipios`
@@ -1225,8 +1248,31 @@ ALTER TABLE `municipios`
   ADD KEY `fk_municipios_departamentos_idx` (`departamentos_id_departamento`);
 
 --
+-- Indices de la tabla `regiones`
+--
+ALTER TABLE `regiones`
+  ADD PRIMARY KEY (`id_region`),
+  ADD UNIQUE KEY `id_region_UNIQUE` (`id_region`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `regiones`
+--
+ALTER TABLE `regiones`
+  MODIFY `id_region` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  ADD CONSTRAINT `fk_departamentos_regiones1` FOREIGN KEY (`regiones_id_region`) REFERENCES `regiones` (`id_region`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `municipios`
